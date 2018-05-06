@@ -5,16 +5,29 @@ services:
     image: postgres:10.1
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-  web:
-    build: .
-    command: python /code/manage.py migrate --noinput
-    command: python /code/manage.py runserver 0.0.0.0:8000
+
+  server:
+    build:
+      context: ./server/
+      dockerfile: Dockerfile
+    command: pipenv shell
+    command: python ./server/manage.py migrate
+    command: python ./server/manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "1337:8000"
     depends_on:
       - db
+
+  client:
+    build:
+      context: ./client/
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code
+    depends_on:
+      - server
 
 volumes:
   postgres_data:
