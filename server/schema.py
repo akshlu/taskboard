@@ -25,23 +25,24 @@ class SubTaskType(DjangoObjectType):
         model = SubTask
 
 class Query(graphene.ObjectType):
-    all_epics = graphene.List(EpicType)
-    all_tasks = graphene.List(TaskType)
-    all_subtasks = graphene.List(SubTaskType)
+    epics = graphene.List(EpicType)
+    tasks = graphene.List(TaskType)
+    subtasks = graphene.List(SubTaskType)
+    projects = graphene.List(ProjectType)
 
     # Debug field (rawSql, parameters etc).
     debug = graphene.Field(DjangoDebug, name='__debug')
 
-    def resolve_all_projects(self, info):
+    def resolve_projects(self, info):
         return Project.objects.all()
 
-    def resolve_all_epics(self, info):
+    def resolve_epics(self, info):
         return Epic.objects.all()
 
-    def resolve_all_tasks(self, info):
+    def resolve_tasks(self, info):
         return Task.objects.select_related('epic').all()
 
-    def resolve_all_subtasks(self, info):
+    def resolve_subtasks(self, info):
         return SubTask.objects.select_related('task').all()
 
 schema = graphene.Schema(query=Query)
