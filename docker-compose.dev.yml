@@ -15,6 +15,8 @@ services:
     command: pipenv shell
     command: python manage.py migrate    
     command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - DJANGO_DEVELOPMENT=true
     volumes:
       - .:/code
     ports:

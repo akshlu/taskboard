@@ -39,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'graphene_django',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',    
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -127,3 +129,8 @@ STATIC_URL = '/client/dist/'
 STATICFILES_DIRS = [
   os.path.normpath(os.path.join(BASE_DIR, 'client/dist/')),
 ]
+
+if os.environ.get('DJANGO_DEVELOPMENT') is not None:
+    CORS_ORIGIN_WHITELIST = ( 'localhost:1338', )
+
+

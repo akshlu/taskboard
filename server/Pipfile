@@ -8,6 +8,7 @@ django = "*"
 "psycopg2" = "*"
 graphene = "*"
 graphene-django = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
