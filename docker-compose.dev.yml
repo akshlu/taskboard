@@ -5,13 +5,15 @@ services:
     image: postgres:10.1
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - "5433:5432"
 
   server:
     build:
       context: ./server/
       dockerfile: Dockerfile
     command: pipenv shell
-    command: python manage.py migrate
+    command: python manage.py migrate    
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/code
