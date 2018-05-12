@@ -27,4 +27,6 @@ rules:
     - off
   comma-dangle:
     - error
-    - always
+    - only-multiline
+  react/prop-types:
+    - 0
